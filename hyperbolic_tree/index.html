@@ -22,7 +22,7 @@ https://github.com/glouwa/d3-hypertree-examples/blob/master/examples-html/minima
                     parent: document.body             
                 },
                 {
-                    dataloader: hyt.loaders.fromFile('./relations.json'),
+                    dataloader: hyt.loaders.fromFile('./hyperbolic_tree_data.json'),
                     langInitBFS: (ht, n)=> n.precalc.label = n.data.name,
                 }
             )
