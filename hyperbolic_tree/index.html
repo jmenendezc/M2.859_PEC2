@@ -4,45 +4,66 @@ https://github.com/glouwa/d3-hypertree-examples/blob/master/examples-html/minima
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-    <head>
+
+<head>
     <title>Hyperbolic tree</title>
     <meta charset="UTF-8" />
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="dcterms.rightsHolder" content="Copyright © 2018 Glatzhofer Michael">
-    
-    <link rel="stylesheet" href="d3-hypertree-light.css" id="ldswitch">        
+
+    <link rel="stylesheet" href="d3-hypertree-light.css" id="ldswitch">
 
     <script src="d3-hypertree.js"></script>
-    </head>
-    <body>
-        <a href="/M2.859_PEC2"><- Inicio</a>
-        <h3>Hyperbolic Tree</h3>
-        <div id="container" style="width: 100%; height: 80vh;">
-        </div>
-        <div style="width: 100%; height: 20vh;">
-            <h3>Fuentes utilizadas</h3>
-            <ul>
-                <li><a href="https://www.kaggle.com/datasets/promptcloud/amazon-product-dataset-2020" target="_blank">Amazon Product Dataset 2020</a></li>
-            </ul>
-            <h3>Herramienta usada para la representación</h3>
-            <ul>
-                <li><a href="https://github.com/glouwa/d3-hypertree" target="_blank">D3-Hypertree</a></li>
-            </ul>
-        </div>
-    </body>
-    <script>            
+    <style>
+        #container canvas {
+            pointer-events: auto;
+            /* sigue funcionando dentro del contenedor */
+        }
+
+        body>*:not(#container) {
+            position: relative;
+            z-index: 1;
+        }
+
+        #container {
+            position: relative;
+            z-index: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="/M2.859_PEC2"><- Inicio</a>
+            <h3>Hyperbolic Tree</h3>
+            <div id="container" style="width: 100%; height: 80vh;">
+            </div>
+            <div style="width: 100%; height: 20vh;">
+                <h3>Fuentes utilizadas</h3>
+                <ul>
+                    <li><a href="https://www.kaggle.com/datasets/promptcloud/amazon-product-dataset-2020"
+                            target="_blank">Amazon Product Dataset 2020</a></li>
+                </ul>
+                <h3>Herramienta usada para la representación</h3>
+                <ul>
+                    <li><a href="https://github.com/glouwa/d3-hypertree" target="_blank">D3-Hypertree</a></li>
+                </ul>
+            </div>
+</body>
+<script>
     const ht = new hyt.Hypertree(
         {
-            parent: document.getElementById("container")             
+            parent: document.getElementById("container"),
         },
         {
             dataloader: hyt.loaders.fromFile('./hyperbolic_tree_data.json'),
-            langInitBFS: (ht, n)=> n.precalc.label = n.data.name,
+            langInitBFS: (ht, n) => n.precalc.label = n.data.name,
         }
     )
     ht.initPromise
-        .then(()=> new Promise((ok, err)=> ht.animateUp(ok, err)))            
-        .then(()=> ht.drawDetailFrame())
+        .then(() => new Promise((ok, err) => ht.animateUp(ok, err)))
+        .then(() => ht.drawDetailFrame())
 </script>
+
 </html>
