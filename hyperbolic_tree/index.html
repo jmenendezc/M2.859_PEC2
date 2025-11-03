@@ -16,19 +16,31 @@ https://github.com/glouwa/d3-hypertree-examples/blob/master/examples-html/minima
     <script src="d3-hypertree.js"></script>
     </head>
     <body>
-        <script>            
-            const ht = new hyt.Hypertree(
-                {
-                    parent: document.body             
-                },
-                {
-                    dataloader: hyt.loaders.fromFile('./hyperbolic_tree_data.json'),
-                    langInitBFS: (ht, n)=> n.precalc.label = n.data.name,
-                }
-            )
-            ht.initPromise
-                .then(()=> new Promise((ok, err)=> ht.animateUp(ok, err)))            
-                .then(()=> ht.drawDetailFrame())
-        </script>
+        <div id="container" style="width: 100%; height: 80vh;">
+        </div>
+        <div style="width: 100%; height: 20vh;">
+            <h3>Fuentes utilizadas</h3>
+            <ul>
+                <li><a href="https://www.kaggle.com/datasets/promptcloud/amazon-product-dataset-2020" target="_blank">Amazon Product Dataset 2020</a></li>
+            </ul>
+            <h3>Herramienta usada para la representación</h3>
+            <ul>
+                <li><a href="https://github.com/glouwa/d3-hypertree" target="_blank">D3-Hypertree</a></li>
+            </ul>
+        </div>
     </body>
+    <script>            
+    const ht = new hyt.Hypertree(
+        {
+            parent: document.getElementById("container")             
+        },
+        {
+            dataloader: hyt.loaders.fromFile('./hyperbolic_tree_data.json'),
+            langInitBFS: (ht, n)=> n.precalc.label = n.data.name,
+        }
+    )
+    ht.initPromise
+        .then(()=> new Promise((ok, err)=> ht.animateUp(ok, err)))            
+        .then(()=> ht.drawDetailFrame())
+</script>
 </html>

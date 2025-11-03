@@ -1,37 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <title>Venn Diagram</title>
-    <script src="./anychart-bundle.min.js"></script>
-    <script>
-      anychart.onDocumentReady(function() {
-        // Cargar CSV local
-        fetch('./g20_eu_oecd_data.csv')
-          .then(response => response.text())
-          .then(csvText => {
-            const rows = csvText.trim().split('\n').map(r => r.split(','));
-            const data = rows.map(([id, size, description]) => ({
-              x: id,
-              value: parseInt(size),
-              name: description
-            }));
-            // create a chart and set the data
-            chart = anychart.venn(data);
 
-            // configure labels of intersections
-            chart.intersections().labels().format('{%name}: {%value}');
+<head>
+  <meta charset="utf-8">
+  <title>Venn Diagram</title>
+  <script src="./anychart-bundle.min.js"></script>
+  <script>
+    anychart.onDocumentReady(function () {
+      // Cargar CSV local
+      fetch('./g20_eu_oecd_data.csv')
+        .then(response => response.text())
+        .then(csvText => {
+          const rows = csvText.trim().split('\n').map(r => r.split(','));
+          const data = rows.map(([id, size, description]) => ({
+            x: id,
+            value: parseInt(size),
+            name: description
+          }));
+          // create a chart and set the data
+          chart = anychart.venn(data);
 
-            // set the container id
-            chart.container('container');
+          // configure labels of intersections
+          chart.intersections().labels().format('{%name}: {%value}');
 
-            // initiate drawing the chart
-            chart.draw();
-          });
-      });
-    </script>
-  </head>
-  <body style="font-family:sans-serif;">
-    <div id="container" style="width: 100%; height: 600px;"></div>
-  </body>
+          // set the container id
+          chart.container('container');
+
+          // initiate drawing the chart
+          chart.draw();
+        });
+    });
+  </script>
+</head>
+
+<body style="font-family:sans-serif;">
+  <div id="container" style="width: 100%; height: 80vh;"></div>
+  <div style="width: 100%; height: 20vh;">
+    <h3>Fuentes utilizadas</h3>
+    <ul>
+      <li><a href="https://www.kaggle.com/datasets/eurostat/european-union" target="_blank">Member States of the
+          European Union</a></li>
+      <li><a href="https://www.kaggle.com/datasets/jej13b/oecd-better-life-index" target="_blank">OECD Better Life Index
+          2017</a></li>
+      <li><a href="https://www.kaggle.com/datasets/kalacheva/g20-countries-development-indicators" target="_blank">G20
+          Countries Development Indicators</a></li>
+    </ul>
+    <h3>Herramienta usada para la representación</h3>
+    <ul>
+      <li><a href="https://docs.anychart.com/Quick_Start/Quick_Start" target="_blank">AnyChart</a></li>
+    </ul>
+  </div>
+</body>
+
 </html>
